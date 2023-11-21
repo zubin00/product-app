@@ -1,7 +1,7 @@
 <div class="wrap-categories">
   <ul class="item-wrap-category">
     <li *ngFor="let item of categoryList" class="list-category">
-      
+
       <button (click)="filterCategory(item.name)" class="btn">{{item.name}}</button>
     </li>
   </ul>
@@ -9,18 +9,23 @@
 
 <div class="product">
   <ul>
-    <li class="product-wrap" *ngFor="let item of productList">
-      <img src={{item.images[0]}} alt={{item.title}} class="product-logo">
-      <div class="product-description">
-        <h1>{{item.title}}</h1>
-        <p>{{item.description}}</p>
-        <div class="product-bottom">
-          <span>{{item.price | currency}}</span>
-          <span>{{item.category.name}}</span>
+    <ng-container *ngIf="productList.length>0">
+      <li class="product-wrap" *ngFor="let item of productList">
+        <img src={{item.images[0]}} alt={{item.title}} class="product-logo">
+        <div class="product-description">
+          <h1>{{item.title}}</h1>
+          <p>{{item.description}}</p>
+          <div class="product-bottom">
+            <span>{{item.price | currency}}</span>
+            <span>{{item.category.name}}</span>
 
+          </div>
         </div>
-      </div>
 
-    </li>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="productList.length===0">
+      No Data Found
+    </ng-container>
   </ul>
 </div>
