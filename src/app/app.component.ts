@@ -9,7 +9,6 @@ import { DataService } from './data.service';
 export class AppComponent {
   productList: any = [];
   categoryList: any = [];
-  filteredProductList=[];
   originalProductList: any[] = [];
   constructor(private dataService: DataService) {
 
