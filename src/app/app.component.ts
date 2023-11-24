@@ -10,7 +10,6 @@ export class AppComponent {
   productList: any = [];
   categoryList: any = [];
   originalProductList: any[] = [];
-  placeholderImage='https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg'
   constructor(private dataService: DataService) {
 
   }
