@@ -1,31 +1,30 @@
+<!-- Category Component -->
 <div class="wrap-categories">
   <ul class="item-wrap-category">
-    <li *ngFor="let item of categoryList" class="list-category">
-
-      <button (click)="filterCategory(item.name)" class="btn">{{item.name}}</button>
+    <li *ngFor="let category of categoryList" class="list-category">
+      <button (click)="filterCategory(category.name)" class="btn">{{ category.name }}</button>
     </li>
   </ul>
 </div>
 
+<!-- Product Component -->
 <div class="product">
   <ul>
-    <ng-container *ngIf="productList.length>0">
-      <li class="product-wrap" *ngFor="let item of productList">
-        <img src={{item.images[0]}} alt={{item.title}} class="product-logo">
+    <ng-container *ngIf="productList.length; else noData">
+      <li class="product-wrap" *ngFor="let product of productList">
+        <img [src]="product.images?.[0]" [alt]="product.title" class="product-logo">
         <div class="product-description">
-          <h1>{{item.title}}</h1>
-          <p>{{item.description}}</p>
+          <h1>{{ product.title }}</h1>
+          <p>{{ product.description }}</p>
           <div class="product-bottom">
-            <span>{{item.price | currency}}</span>
-            <span>{{item.category.name}}</span>
-
+            <span>{{ product.price | currency }}</span>
+            <span>{{ product.category?.name }}</span>
           </div>
         </div>
-
       </li>
     </ng-container>
-    <ng-container *ngIf="productList.length===0">
+    <ng-template #noData>
       No Data Found
-    </ng-container>
+    </ng-template>
   </ul>
 </div>

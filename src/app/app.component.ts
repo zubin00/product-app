@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
 
 @Component({
@@ -6,35 +6,44 @@ import { DataService } from './data.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   productList: any = [];
   categoryList: any = [];
-  originalProductList: any[] = [];
-  constructor(private dataService: DataService) {
+  originalProductList: any = [];
 
-  }
+  constructor(private dataService: DataService) {}
+
   ngOnInit() {
-    this.product();
-    this.category();
+    this.fetchProduct();
+    this.fetchCategories();
   }
 
-  product() {
-    this.dataService.getProduct().subscribe((res: any) => {
-      this.productList = res;
-      this.originalProductList =this.productList;
-    });
+  fetchProduct() {
+    this.dataService.getProduct().subscribe(
+      (res: any) => {
+        this.productList = res;
+        this.originalProductList = [...this.productList];
+      },
+      error => {
+        console.error('Error fetching products:', error);
+      }
+    );
   }
 
-  category() {
-    this.dataService.getCategories().subscribe((res: any) => {
-      this.categoryList = res;
-    });
+  fetchCategories() {
+    this.dataService.getCategories().subscribe(
+      (res: any) => {
+        this.categoryList = res;
+      },
+      error => {
+        console.error('Error fetching categories:', error);
+      }
+    );
   }
-  
+
   filterCategory(name: string) {
-    
-    this.productList= this.originalProductList.filter((item: any) => 
-      item.category.name.toLowerCase().includes(name.toLowerCase())
+    this.productList = this.originalProductList.filter(
+      (item: any) => item.category.name.toLowerCase().includes(name.toLowerCase())
     );
   }
 }
